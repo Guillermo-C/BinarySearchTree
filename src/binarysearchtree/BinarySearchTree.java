@@ -16,12 +16,23 @@ public class BinarySearchTree {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        // Something to talk about!
-        Tree myTree = new Tree();
-        myTree.add(44);
-        myTree.add(24);
         
-        System.out.println(myTree.root);
+        Tree myTree = new Tree();
+        
+        myTree.add(44);
+        myTree.add(94);
+        myTree.add(34);
+        myTree.add(14);
+        myTree.add(4);
+        myTree.add(-4);
+        
+        
+        myTree.printTree(myTree.root);
+        System.out.println();
+        System.out.println("Height of the tree: " + myTree.getHeight(myTree.root));
+        myTree.remove(4);
+        //myTree.printTree(myTree.root);
+        
     }
     
 }
