@@ -31,7 +31,7 @@ public class BinarySearchTree {
         System.out.println();
         System.out.println("Height of the tree: " + myTree.getHeight(myTree.root));
         myTree.remove(4);
-        //myTree.printTree(myTree.root);
+        myTree.printTree(myTree.root);
         
     }
     
