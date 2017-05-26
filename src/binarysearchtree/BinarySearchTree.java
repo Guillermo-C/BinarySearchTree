@@ -21,6 +21,9 @@ public class BinarySearchTree {
         
         myTree.add(44);
         myTree.add(94);
+        myTree.add(92);
+        myTree.add(93);
+        myTree.add(90);
         myTree.add(34);
         myTree.add(14);
         myTree.add(4);
