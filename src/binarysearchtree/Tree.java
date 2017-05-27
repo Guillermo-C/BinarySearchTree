@@ -1,42 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package binarysearchtree;
 
-import java.util.LinkedList;
+package binarysearchtree;
 
 /**
  *
- * @author ninjamemo
+ * @author Guillermo Colin
  */
+
 public class Tree {
     
+    //  Root of the tree.
     public Node root; 
-
-    public int height = 0;
     
-    public LinkedList<Integer> treeContentList = new LinkedList();
-    
+    //  Default constructor.
     public Tree(){
         root = null;
     }
     
+    //  Function to add a node.
     public void add(int value){
+        
         Node newNode = new Node();
+        
         newNode.intData = value;
         
-        if(root == null){
+        if(root == null){         
             newNode.placement = "root";
             root = newNode;
+            System.out.println("\n" + value + " added as root");
             
-            //treeContentList.add(newNode.intData);
         }
         else{
+            
             Node currentNode = root;
             Node parent; 
+            
             while(true){
+                
                 parent = currentNode;
                 
                 if(newNode.intData < parent.intData){
@@ -46,12 +45,9 @@ public class Tree {
                     if(currentNode == null){
                         parent.leftChild = newNode;
                         newNode.placement = "LEFT";
-                        System.out.println("Child added Left");
-                        
-
+                        System.out.println("Child added Left");                      
                         return;
                     }
-
                 }
                 else{
                     newNode.particularRoot = parent.intData;
@@ -68,11 +64,13 @@ public class Tree {
         }
     }
     
-    
+    //  Function to remove a node.
     public void remove(int value){
+        
         Node currentNode = root;
         Node parent = root;
         boolean isLeftChild = true;
+
         
         while(currentNode.intData != value){
             
@@ -87,28 +85,23 @@ public class Tree {
                 currentNode = currentNode.rightChild;
             }
             
-            /*            if(currentNode.intData == value){
-            System.out.println("Value: " + value + " was found");
-            break;
-            }*/
-            
             if(currentNode == null){
-            //if(currentNode.leftChild == null && currentNode.rightChild == null){
-                System.out.println("DIDN'T FIND SHIT");
+                System.out.println("\nNumber: "+ value +" does not exist\n");          
                 break;
             }
             
-        }   //  End while
+        } 
+ 
         
         //  Node has no children
         if( currentNode.leftChild == null && currentNode.rightChild == null ){
-          if(currentNode == root) root = null;
-          if(isLeftChild){
-              parent.leftChild = null;
-          }
-          else{
-              parent.rightChild = null;
-          }
+            if(currentNode == root) root = null;
+            if(isLeftChild){
+                parent.leftChild = null;
+            }
+            else{
+                parent.rightChild = null;
+            }
         } 
         
         //  Node has one (LEFT) child 
@@ -119,35 +112,30 @@ public class Tree {
                 parent.leftChild = currentNode.leftChild;
                 parent.leftChild.particularRoot = parent.intData;   //  Update the particularRoot for that node
             }
-            else{
-                    //  Need to update particularRoot
-                System.out.println("Doing something wrong");    
+            else{   
                 parent.rightChild = currentNode.leftChild;
             }
         }
         
         //  Node has one (RIGHT) child
         else if(currentNode.leftChild == null){
-            System.out.println("Would happen here");
+            
             if(currentNode == root) root = currentNode.rightChild;
             
             else if (isLeftChild){
                 parent.leftChild = currentNode.rightChild;
                 parent.leftChild.particularRoot = parent.intData;
                 parent.leftChild.placement = "LEFT";
-            System.out.println("Was left child");
             }
             
-            else{
-            //  Need to update particularRoot
-            parent.rightChild = currentNode.rightChild;
-            
+            else{    
+                parent.rightChild = currentNode.rightChild; //  Need to update particularRoot           
             }
         }
        
         //  Node has two children
         else{
-            //System.out.println("TWO CHILDREN");
+
             Node successor = getMinRSubT(currentNode);
             
             if(currentNode == root) root = successor;
@@ -156,27 +144,28 @@ public class Tree {
             
             successor.leftChild = currentNode.leftChild;
             
+            //  Update the particularRoot and placement for the successor.
             successor.particularRoot = parent.intData;
             successor.placement = "RIGHT";
+            
             //  Update particularRoot(s)
             successor.leftChild.particularRoot = successor.intData;
             successor.rightChild.particularRoot = successor.intData;
             
-            //  For testing purposes
+            //  ignore-for testing purposes only
             /*System.out.println("Current parent is: " + parent.intData);
             System.out.println("Current node is: " + successor.intData);         
             System.out.println("Current node's left is: " + successor.leftChild.intData);
             System.out.println("Successor right child: " + successor.rightChild.intData);*/
             
         }
-        
-        
-        
+
     }
     
     
-    //  Get the min node on right subtree
+    //  Get the min node on right subtree. Used when deleting a node with 2 children.
     public Node getMinRSubT(Node value){
+        
         Node successorParent = value;
         Node successor = value;
         Node current = value.rightChild;
@@ -207,27 +196,24 @@ public class Tree {
     }
     
     
-        /* Function to calculate the minimum depth of the tree */
+    //  Get the height of the tree
     public int getHeight(Node root)
     {
-        // Corner case. Should never be hit unless the code is
-        // called on root = NULL
+
         if (root == null)
             return 0;
  
-        // Base case : Leaf Node. This accounts for height = 1.
         if (root.leftChild == null && root.rightChild == null)
             return 1;
  
-        // If left subtree is NULL, recur for right subtree
         if (root.leftChild == null)
             return getHeight(root.rightChild) + 1;
  
-        // If right subtree is NULL, recur for right subtree
         if (root.rightChild == null)
             return getHeight(root.leftChild) + 1;
  
         return Math.max(getHeight(root.leftChild),
                         getHeight(root.rightChild)) + 1;
     }
+    
 }

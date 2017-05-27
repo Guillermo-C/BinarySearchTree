@@ -1,22 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package binarysearchtree;
 
 /**
  *
- * @author ninjamemo
+ * @author Guillermo Colin
  */
+
 public class Node {
 
-    int intData;
-    public Node leftChild;
-    public Node rightChild;
-    public String placement;
-    public int particularRoot;
+    //  Declare all the properties of a Node.
+    int intData;                //  Define the value of this particular Node.
+    public Node leftChild;      //  Define the Node's leftChild
+    public Node rightChild;     //  Define the Node's rightChild
+    public String placement;    //  Right or Left to its root
+    public int particularRoot;  //  The root for this particular Node
 
+    //  Node toString().
     @Override
     public String toString() {
         return "Node{" + "intData=" + intData + '}';
